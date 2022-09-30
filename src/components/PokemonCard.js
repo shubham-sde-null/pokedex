@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "rgb(90,90,90)",
     },
-    borderRight: "0.1px solid white",
-    borderBottom: "0.1px solid white",
+    borderRight: "0.1px solid #eb4d4b",
+    borderBottom: "0.1px solid #eb4d4b",
   },
   cardMedia: {
     margin: "auto",

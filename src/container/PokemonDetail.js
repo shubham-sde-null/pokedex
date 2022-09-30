@@ -34,6 +34,7 @@
 // }
 
 import React from "react";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -47,6 +48,7 @@ import {
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Typography } from "@material-ui/core";
+import { toggleFavourite } from "../redux/action";
 const useStyles = makeStyles((theme) => ({
   pokedexContainer: {
     height: "85vh",
@@ -88,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
 }));
-function PokemonDetail() {
+function PokemonDetail(props) {
   const classes = useStyles();
   const { id } = useParams();
 
@@ -111,6 +113,18 @@ function PokemonDetail() {
       }
     });
   }, []);
+  //this function is used to check whether the favourite button is red or white
+  const favouriteChecker = (pokemon) => {
+    let found = false;
+    props.favourites?.map((p) => {
+      if (p.id === pokemon.id) {
+        found = true;
+      }
+      return found;
+    });
+    return found;
+  };
+  console.log("insidepokemondetails", props);
   const { name, height, weight } = pokemonData;
   if (pokemonData) {
     return (
@@ -130,8 +144,16 @@ function PokemonDetail() {
             <hr className={classes.seperator} />
             <Grid container>
               <Grid item md={1}>
-                <Button className={classes.favourite}>
-                  <FavoriteIcon style={{ color: "white", fontSize: "50px" }} />
+                <Button
+                  className={classes.favourite}
+                  onClick={() => props.toggleFavourite(pokemonData)}
+                >
+                  <FavoriteIcon
+                    style={{
+                      color: favouriteChecker(pokemonData) ? "red" : "white",
+                      fontSize: "50px",
+                    }}
+                  />
                 </Button>
               </Grid>
               <Grid item md={2}>
@@ -190,5 +212,11 @@ function PokemonDetail() {
     <CircularProgress />;
   }
 }
+const mapStateToProps = (state) => ({
+  favourites: state.favourites,
+});
 
-export default PokemonDetail;
+const mapDispatchToProps = (dispatch) => ({
+  toggleFavourite: (pokemon) => dispatch(toggleFavourite(pokemon)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonDetail);

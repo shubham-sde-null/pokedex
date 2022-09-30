@@ -26,6 +26,16 @@ function AppNavigator() {
             Pokedex{" "}
           </Typography>{" "}
         </Link>{" "}
+        <Link to="/favourites" className={classes.link}>
+          <Typography
+            className={classes.title}
+            style={{ marginLeft: "15px" }}
+            variant="h6"
+          >
+            {" "}
+            Favourites{" "}
+          </Typography>{" "}
+        </Link>{" "}
       </Toolbar>{" "}
     </AppBar>
   );
