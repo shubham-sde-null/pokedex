@@ -33,6 +33,7 @@
 //   }
 // }
 
+//when we click on particular pokemon then this page gets opened, to get this page we read the params present inside the url and based on that we fetch the data of that pokemon and get all the details
 import React from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -112,6 +113,8 @@ function PokemonDetail(props) {
         console.log(pokemonData.name + pokemonData.height);
       }
     });
+    //the below line is used for missing dependency message in terminal
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //this function is used to check whether the favourite button is red or white
   const favouriteChecker = (pokemon) => {

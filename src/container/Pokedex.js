@@ -1,3 +1,4 @@
+//this will show the main page where we will get all the pokemons
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, CircularProgress, Grid, makeStyles } from "@material-ui/core";
@@ -96,6 +97,7 @@ export default Pokedex;
 // function Pokedex() {
 //   const [pokemonData, setPokemonData] = useState(null);
 //   useEffect(() => {
+//if we want to use asyn funtion in useEffect then we have to make like the below I can't directly put it in useEffect callback function
 //     const getData = async () => {
 //       const resp = await fetch(POKEMON_API_URL + "?limit=80");
 //       const data = await resp.json();
