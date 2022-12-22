@@ -39,7 +39,9 @@ function Pokedex() {
           index++;
           let pokemonObject = {
             id: index,
+            //use this api if the image is loading, else use the svg images show below
             url: IMAGE_API_URL + index + ".png",
+            // url: IMAGE_API_URL + index + ".svg",
             name: pokemon.name,
           };
           newPokemonData.push(pokemonObject);
