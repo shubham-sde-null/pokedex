@@ -31,7 +31,7 @@ function Pokedex() {
         //here we get the output in the response and we have to convert the data in some proper from using .data method (we have destructured the data over here in result variable)
         const { results } = response.data;
 
-        console.log(results);
+        // console.log(results);
         //we are going to store the new data in array and inside this array we have onjects
         let newPokemonData = [];
         results.forEach((pokemon, index) => {
@@ -43,7 +43,7 @@ function Pokedex() {
             name: pokemon.name,
           };
           newPokemonData.push(pokemonObject);
-          console.log("pokemonObject", pokemonObject);
+          // console.log("pokemonObject", pokemonObject);
           //   console.log("pokemon", pokemon);
         });
         //here we stored the whole pokemon data into the array
