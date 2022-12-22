@@ -46,11 +46,28 @@ import {
   Grid,
   makeStyles,
   Button,
+  useTheme,
+  useMediaQuery,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Typography } from "@material-ui/core";
 import { toggleFavourite } from "../redux/action";
 const useStyles = makeStyles((theme) => ({
+  outerContainer: {
+    // border: "2px solid green",
+    maxWidth: "100vw",
+    overflow: "hidden",
+    margin: "0 auto",
+    // background: "orange",
+  },
+  outerContainerS: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    maxWidth: "100%",
+    // border: "2px solid limegreen",
+    marginTop: "70px",
+  },
   pokedexContainer: {
     height: "85vh",
     backgroundColor: "black",
@@ -59,9 +76,31 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     paddingTop: "30px",
   },
+  pokedexContainerS: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    // gap: "1rem",
+    // border: "3px solid yellow",
+
+    width: "100%",
+    minHeight: "85vh",
+    height: "fit-content",
+    backgroundColor: "black",
+    // marginTop: "75px",
+    textAlign: "center",
+    borderRadius: "5px",
+    // paddingTop: "30px",
+  },
   textTitle: {
     color: "white",
     textTransform: "upperCase",
+  },
+  textTitleS: {
+    color: "white",
+    textTransform: "upperCase",
+    fontSize: "2.5rem",
   },
   loading: {
     marginTop: "80px",
@@ -70,11 +109,23 @@ const useStyles = makeStyles((theme) => ({
     width: "200px",
     height: "200px",
   },
+  pokemonImageS: {
+    width: "200px",
+    height: "200px",
+  },
   pokemonInfo: {
     bottom: "60px",
     // backgroundColor: "blue",
     position: "absolute",
     width: "100%",
+  },
+  pokemonInfoS: {
+    // bottom: "60px",
+    // backgroundColor: "blue",
+    // position: "absolute",
+    width: "100%",
+    // border: "2px solid yellow",
+    // overflow: "hidden",
   },
   seperator: {
     hwight: "0.001mm",
@@ -86,12 +137,38 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "15px",
     // border: "1px solid white",
   },
+  favouriteS: {
+    display: "flex",
+    // justifyContent: "center",
+    alignItems: "center",
+    gap: "5rem",
+    // height: "50px",
+    fontSize: "1rem",
+    fontWeight: "600",
+    // marginTop: "15px",
+    // border: "1px solid red",
+    width: "100%",
+    marginBottom: "1rem",
+  },
   text: {
     fontSize: "35px",
     color: "white",
   },
+  textS: {
+    fontSize: "20px",
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "1rem",
+    // border: "1px solid red",
+    minWidth: "70vw",
+    width: "fit-content",
+  },
 }));
 function PokemonDetail(props) {
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
   const { id } = useParams();
 
@@ -131,9 +208,18 @@ function PokemonDetail(props) {
   const { name, height, weight } = pokemonData;
   if (pokemonData) {
     return (
-      <Box>
-        <Box className={classes.pokedexContainer}>
-          <Typography className={classes.textTitle} variant="h1">
+      <Box
+        className={isMatch ? classes.outerContainerS : classes.outerContainer}
+      >
+        <Box
+          className={
+            isMatch ? classes.pokedexContainerS : classes.pokedexContainer
+          }
+        >
+          <Typography
+            className={isMatch ? classes.textTitleS : classes.textTitle}
+            variant="h1"
+          >
             {/* {pokemonData.name ? (
               pokemonData.name
             ) : (
@@ -142,42 +228,99 @@ function PokemonDetail(props) {
             {name}
           </Typography>
 
-          <img className={classes.pokemonImage} src={pokeImg} alt={name} />
-          <Box className={classes.pokemonInfo}>
+          <img
+            className={isMatch ? classes.pokemonImageS : classes.pokemonImage}
+            src={pokeImg}
+            alt={name}
+          />
+          <Box className={isMatch ? classes.pokemonInfoS : classes.pokemonInfo}>
             <hr className={classes.seperator} />
-            <Grid container>
+            <Grid
+              container
+              direction={isMatch ? "column" : "row"}
+              justifyContent="center"
+              alignItems="center"
+            >
               <Grid item md={1}>
                 <Button
-                  className={classes.favourite}
+                  className={isMatch ? classes.favouriteS : classes.favourite}
                   onClick={() => props.toggleFavourite(pokemonData)}
                 >
+                  {isMatch ? (
+                    <span
+                      style={{
+                        color: "white",
+                        marginRight: "auto",
+                      }}
+                    >
+                      Add To Favourite
+                    </span>
+                  ) : (
+                    ""
+                  )}{" "}
                   <FavoriteIcon
                     style={{
                       color: favouriteChecker(pokemonData) ? "red" : "white",
-                      fontSize: "50px",
+                      fontSize: isMatch ? "35px" : "50px",
                     }}
                   />
                 </Button>
               </Grid>
               <Grid item md={2}>
-                <Typography className={classes.text}>
-                  Name
+                <Typography className={isMatch ? classes.textS : classes.text}>
+                  <span
+                    style={{
+                      marginRight: "auto",
+                      width: "40%",
+                    }}
+                  >
+                    {" "}
+                    Name
+                  </span>
                   <br />
-                  {name}
+                  <span style={{ marginRight: "auto", textAlign: "left" }}>
+                    {" "}
+                    {name}
+                  </span>
                 </Typography>
               </Grid>
               <Grid item md={2}>
-                <Typography className={classes.text}>
-                  Height
+                <Typography className={isMatch ? classes.textS : classes.text}>
+                  <span
+                    style={{
+                      marginRight: "auto",
+                      width: "40%",
+                    }}
+                  >
+                    {" "}
+                    Height
+                  </span>
                   <br />
-                  {height}m
+                  <span style={{ marginRight: "auto", textAlign: "left" }}>
+                    {" "}
+                    {height}
+                  </span>
                 </Typography>
               </Grid>
               <Grid item md={2}>
-                <Typography className={classes.text}>
-                  Name
+                <Typography className={isMatch ? classes.textS : classes.text}>
+                  <span
+                    style={{
+                      marginRight: "auto",
+                      width: "40%",
+                    }}
+                  >
+                    Weight
+                  </span>
                   <br />
-                  {weight}kg
+                  <span
+                    style={{
+                      marginRight: "auto",
+                      textAlign: "left",
+                    }}
+                  >
+                    {weight}kg
+                  </span>
                 </Typography>
               </Grid>
               {/* here types is an array of objects, so we can apply map method on it, so on iteration we get an array element, here each array element is an object and inside that object we have our value preset inside it, now we can do the destructuring and can get the require valaue  */}
@@ -197,10 +340,29 @@ function PokemonDetail(props) {
                 const { name } = pokemonType.type;
                 return (
                   <Grid item md={2}>
-                    <Typography className={classes.text}>
-                      Type
+                    <Typography
+                      className={isMatch ? classes.textS : classes.text}
+                    >
+                      <span
+                        style={{
+                          marginRight: "auto",
+                          width: "40%",
+                        }}
+                      >
+                        {" "}
+                        Type
+                      </span>
+
                       <br />
-                      {name}
+                      <span
+                        style={{
+                          marginRight: "auto",
+                          textAlign: "left",
+                        }}
+                      >
+                        {" "}
+                        {name}
+                      </span>
                     </Typography>
                   </Grid>
                 );

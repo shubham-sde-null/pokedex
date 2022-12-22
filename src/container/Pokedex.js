@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#51087E",
   },
 }));
+
 function Pokedex() {
   const classes = useStyles();
   //initially we are keeping the pokemon data to empty array and then while using useEffect i will set the data
@@ -29,8 +30,9 @@ function Pokedex() {
       if (response.status >= 200 && response.status < 300) {
         //here we get the output in the response and we have to convert the data in some proper from using .data method (we have destructured the data over here in result variable)
         const { results } = response.data;
-        // console.log(results);
-        //we are going to store the new data in array
+
+        console.log(results);
+        //we are going to store the new data in array and inside this array we have onjects
         let newPokemonData = [];
         results.forEach((pokemon, index) => {
           //we want id from 1 so we will increment the index value and it will get stored from 1 instead of 0
@@ -41,7 +43,7 @@ function Pokedex() {
             name: pokemon.name,
           };
           newPokemonData.push(pokemonObject);
-          //   console.log("pokemonObject", pokemonObject);
+          console.log("pokemonObject", pokemonObject);
           //   console.log("pokemon", pokemon);
         });
         //here we stored the whole pokemon data into the array
@@ -67,8 +69,15 @@ function Pokedex() {
     // </Box>
 
     <Box>
+      {" "}
       {pokemonData ? (
-        <Grid className={classes.pokedexContainer} container spacing={2}>
+        <Grid
+          // style={{ border: "2px solid yellow" }}
+          className={classes.pokedexContainer}
+          container
+          spacing={2}
+        >
+          {" "}
           {pokemonData.map((pokemon) => {
             return (
               <PokemonCard
@@ -77,11 +86,11 @@ function Pokedex() {
                 key={pokemon.id}
               />
             );
-          })}
+          })}{" "}
         </Grid>
       ) : (
         <CircularProgress style={{ marginTop: "100px" }} />
-      )}
+      )}{" "}
     </Box>
   );
 }
