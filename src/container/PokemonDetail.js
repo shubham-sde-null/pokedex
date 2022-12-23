@@ -186,8 +186,8 @@ function PokemonDetail(props) {
         setPokemonData(response.data);
         setPokeImg(response.data.sprites.front_default);
         setTypes(response.data.types);
-        console.log(typeof pokemonData);
-        console.log(pokemonData.name + pokemonData.height);
+        // console.log(typeof pokemonData);
+        // console.log(pokemonData.name + pokemonData.height);
       }
     });
     //the below line is used for missing dependency message in terminal
